@@ -7,6 +7,9 @@
     "name": "JaredReisinger",
     "email": "jaredreisinger@hotmail.com"
   },
+  "precommit": [
+     "build"
+   ],
   "keywords": [
     "react",
     "react-crossword",
