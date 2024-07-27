@@ -11,7 +11,7 @@ export declare const crosswordProviderPropTypes: {
         across: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
+                answer: PropTypes.Validator<string>;
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
@@ -19,7 +19,7 @@ export declare const crosswordProviderPropTypes: {
         down: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
+                answer: PropTypes.Validator<string>;
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
@@ -253,7 +253,7 @@ declare const CrosswordProvider: React.ForwardRefExoticComponent<Omit<PropTypes.
         across: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
+                answer: PropTypes.Validator<string>;
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
@@ -261,7 +261,7 @@ declare const CrosswordProvider: React.ForwardRefExoticComponent<Omit<PropTypes.
         down: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
+                answer: PropTypes.Validator<string>;
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;

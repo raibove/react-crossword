@@ -208,6 +208,49 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
         // fake cellData to represent "out of bounds"
         return { row, col, used: false, outOfBounds: true };
     }, [cols, gridData, rows]);
+    const moveTo = (0, react_1.useCallback)((row, col, directionOverride) => {
+        var _a;
+        let direction = directionOverride !== null && directionOverride !== void 0 ? directionOverride : currentDirection;
+        const candidate = getCellData(row, col);
+        if (!candidate.used) {
+            return false;
+        }
+        // If we try to move to a cell with a direction it doesn't support,
+        // switch to the other direction.  There is no codepath that can test
+        // this, though, as this callback isn't exposed, and we only call it in
+        // ways that guarantee that direction is valid.
+        if (!candidate[direction]) {
+            /* istanbul ignore next */
+            direction = (0, util_1.otherDirection)(direction);
+        }
+        setFocusedRow(row);
+        setFocusedCol(col);
+        setCurrentDirection(direction);
+        setCurrentNumber((_a = candidate[direction]) !== null && _a !== void 0 ? _a : '');
+        return candidate;
+    }, [currentDirection, getCellData]);
+    const moveRelative = (0, react_1.useCallback)((dRow, dCol) => {
+        // We expect *only* one of dRow or dCol to have a non-zero value, and
+        // that's the direction we will "prefer".  If *both* are set (or zero),
+        // we don't change the direction.
+        let direction;
+        if (dRow !== 0 && dCol === 0) {
+            direction = 'down';
+        }
+        else if (dRow === 0 && dCol !== 0) {
+            direction = 'across';
+        }
+        const cell = moveTo(focusedRow + dRow, focusedCol + dCol, direction);
+        return cell;
+    }, [focusedRow, focusedCol, moveTo]);
+    const moveForward = (0, react_1.useCallback)(() => {
+        const across = (0, util_1.isAcross)(currentDirection);
+        moveRelative(across ? 0 : 1, across ? 1 : 0);
+    }, [currentDirection, moveRelative]);
+    const moveBackward = (0, react_1.useCallback)(() => {
+        const across = (0, util_1.isAcross)(currentDirection);
+        moveRelative(across ? 0 : -1, across ? -1 : 0);
+    }, [currentDirection, moveRelative]);
     const setCellCharacter = (0, react_1.useCallback)((row, col, char) => {
         const cell = getCellData(row, col);
         if (!cell.used) {
@@ -363,49 +406,6 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
             console.warn('CrosswordProvider: focus() has no registered handler to call!');
         }
     }, []);
-    const moveTo = (0, react_1.useCallback)((row, col, directionOverride) => {
-        var _a;
-        let direction = directionOverride !== null && directionOverride !== void 0 ? directionOverride : currentDirection;
-        const candidate = getCellData(row, col);
-        if (!candidate.used) {
-            return false;
-        }
-        // If we try to move to a cell with a direction it doesn't support,
-        // switch to the other direction.  There is no codepath that can test
-        // this, though, as this callback isn't exposed, and we only call it in
-        // ways that guarantee that direction is valid.
-        if (!candidate[direction]) {
-            /* istanbul ignore next */
-            direction = (0, util_1.otherDirection)(direction);
-        }
-        setFocusedRow(row);
-        setFocusedCol(col);
-        setCurrentDirection(direction);
-        setCurrentNumber((_a = candidate[direction]) !== null && _a !== void 0 ? _a : '');
-        return candidate;
-    }, [currentDirection, getCellData]);
-    const moveRelative = (0, react_1.useCallback)((dRow, dCol) => {
-        // We expect *only* one of dRow or dCol to have a non-zero value, and
-        // that's the direction we will "prefer".  If *both* are set (or zero),
-        // we don't change the direction.
-        let direction;
-        if (dRow !== 0 && dCol === 0) {
-            direction = 'down';
-        }
-        else if (dRow === 0 && dCol !== 0) {
-            direction = 'across';
-        }
-        const cell = moveTo(focusedRow + dRow, focusedCol + dCol, direction);
-        return cell;
-    }, [focusedRow, focusedCol, moveTo]);
-    const moveForward = (0, react_1.useCallback)(() => {
-        const across = (0, util_1.isAcross)(currentDirection);
-        moveRelative(across ? 0 : 1, across ? 1 : 0);
-    }, [currentDirection, moveRelative]);
-    const moveBackward = (0, react_1.useCallback)(() => {
-        const across = (0, util_1.isAcross)(currentDirection);
-        moveRelative(across ? 0 : -1, across ? -1 : 0);
-    }, [currentDirection, moveRelative]);
     // keyboard handling
     const handleSingleCharacter = (0, react_1.useCallback)((char) => {
         setCellCharacter(focusedRow, focusedCol, char.toUpperCase());
