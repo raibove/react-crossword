@@ -72,7 +72,7 @@ exports.crosswordProviderPropTypes = {
          */
         highlightBackground: prop_types_1.default.string,
         /**  background for an cell solved */
-        solvedBackground: prop_types_1.default.string
+        solvedBackground: prop_types_1.default.string,
     }),
     /** whether to use browser storage to persist the player's work-in-progress */
     useStorage: prop_types_1.default.bool,
@@ -214,6 +214,7 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
             throw new Error('unexpected setCellCharacter call');
         }
         if (cell.isSolved) {
+            moveForward();
             return;
         }
         // If the character is already the cell's guess, there's nothing to do.
@@ -295,7 +296,7 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
                     });
                 }));
                 // update all cells isSolved = true
-                // for direction - across/down loop al cell and fill isSolved:true 
+                // for direction - across/down loop al cell and fill isSolved:true
                 // get all row/column of complete list.
             }
             // update the clue state

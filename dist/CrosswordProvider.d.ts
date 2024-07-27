@@ -11,7 +11,7 @@ export declare const crosswordProviderPropTypes: {
         across: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>;
+                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
@@ -19,11 +19,11 @@ export declare const crosswordProviderPropTypes: {
         down: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>;
+                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
-        }>; /**  background for an answer cell */
+        }>;
     }>>>;
     /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
     theme: PropTypes.Requireable<PropTypes.InferProps<{
@@ -253,7 +253,7 @@ declare const CrosswordProvider: React.ForwardRefExoticComponent<Omit<PropTypes.
         across: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>;
+                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
@@ -261,11 +261,11 @@ declare const CrosswordProvider: React.ForwardRefExoticComponent<Omit<PropTypes.
         down: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>;
+                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
-        }>; /**  background for an answer cell */
+        }>;
     }>>>;
     /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
     theme: PropTypes.Requireable<PropTypes.InferProps<{

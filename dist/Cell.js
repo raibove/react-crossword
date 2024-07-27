@@ -36,7 +36,7 @@ function Cell({ cellData, onClick, focus, highlight, }) {
     const { cellSize, cellPadding, cellInner, cellHalf, fontSize } = (0, react_1.useContext)(context_1.CrosswordSizeContext);
     const { 
     // gridBackground,
-    cellBackground, cellBorder, textColor, numberColor, focusBackground, highlightBackground, solvedBackground } = (0, react_1.useContext)(styled_components_1.ThemeContext);
+    cellBackground, cellBorder, textColor, numberColor, focusBackground, highlightBackground, solvedBackground, } = (0, react_1.useContext)(styled_components_1.ThemeContext);
     const handleClick = (0, react_1.useCallback)((event) => {
         event.preventDefault();
         if (onClick) {
@@ -46,7 +46,7 @@ function Cell({ cellData, onClick, focus, highlight, }) {
     const { row, col, guess, number, answer, isSolved } = cellData;
     const x = col * cellSize;
     const y = row * cellSize;
-    return ((0, jsx_runtime_1.jsxs)("g", Object.assign({ onClick: handleClick, style: { cursor: 'default', fontSize: `${fontSize}px` }, className: isSolved ? 'clue-cell-solved' : "clue-cell" }, { children: [(0, jsx_runtime_1.jsx)("rect", { x: x + cellPadding, y: y + cellPadding, width: cellInner, height: cellInner, fill: isSolved
+    return ((0, jsx_runtime_1.jsxs)("g", Object.assign({ onClick: handleClick, style: { cursor: 'default', fontSize: `${fontSize}px` }, className: isSolved ? 'clue-cell-solved' : 'clue-cell' }, { children: [(0, jsx_runtime_1.jsx)("rect", { x: x + cellPadding, y: y + cellPadding, width: cellInner, height: cellInner, fill: isSolved
                     ? solvedBackground
                     : focus
                         ? focusBackground
