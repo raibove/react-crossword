@@ -33,7 +33,9 @@ export default function DirectionClues({
   const { clues } = useContext(CrosswordContext);
 
   return (
-    <div className="direction">
+    <div
+      className={direction === 'across' ? `direction across` : 'direction down'}
+    >
       {/* use something other than h3? */}
       <h3 className="header">{label || direction.toUpperCase()}</h3>
       {clues?.[direction].map(({ number, clue, complete, correct }) => (
