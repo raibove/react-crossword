@@ -670,6 +670,7 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
                     rowData.forEach((cellData) => {
                         if (cellData.used) {
                             cellData.guess = cellData.answer;
+                            cellData.isSolved = true;
                         }
                     });
                 });

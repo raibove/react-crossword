@@ -1032,6 +1032,7 @@ const CrosswordProvider = React.forwardRef<
                 rowData.forEach((cellData) => {
                   if (cellData.used) {
                     cellData.guess = cellData.answer;
+                    cellData.isSolved = true;
                   }
                 });
               });
