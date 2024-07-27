@@ -36,21 +36,23 @@ function Cell({ cellData, onClick, focus, highlight, }) {
     const { cellSize, cellPadding, cellInner, cellHalf, fontSize } = (0, react_1.useContext)(context_1.CrosswordSizeContext);
     const { 
     // gridBackground,
-    cellBackground, cellBorder, textColor, numberColor, focusBackground, highlightBackground, } = (0, react_1.useContext)(styled_components_1.ThemeContext);
+    cellBackground, cellBorder, textColor, numberColor, focusBackground, highlightBackground, solvedBackground } = (0, react_1.useContext)(styled_components_1.ThemeContext);
     const handleClick = (0, react_1.useCallback)((event) => {
         event.preventDefault();
         if (onClick) {
             onClick(cellData);
         }
     }, [cellData, onClick]);
-    const { row, col, guess, number, answer } = cellData;
+    const { row, col, guess, number, answer, isSolved } = cellData;
     const x = col * cellSize;
     const y = row * cellSize;
-    return ((0, jsx_runtime_1.jsxs)("g", Object.assign({ onClick: handleClick, style: { cursor: 'default', fontSize: `${fontSize}px` }, className: "clue-cell" }, { children: [(0, jsx_runtime_1.jsx)("rect", { x: x + cellPadding, y: y + cellPadding, width: cellInner, height: cellInner, fill: focus
-                    ? focusBackground
-                    : highlight
-                        ? highlightBackground
-                        : cellBackground, stroke: cellBorder, strokeWidth: cellSize / 50 }), number && ((0, jsx_runtime_1.jsx)("text", Object.assign({ x: x + cellPadding * 4, y: y + cellPadding * 4, textAnchor: "start", dominantBaseline: "hanging", style: { fontSize: '50%', fill: numberColor } }, { children: number }))), (0, jsx_runtime_1.jsx)("text", Object.assign({ x: x + cellHalf, y: y + cellHalf + 1, textAnchor: "middle", dominantBaseline: "middle", style: { fill: textColor }, className: answer === guess ? 'guess-text-correct' : 'guess-text-incorrect' }, { children: guess }))] })));
+    return ((0, jsx_runtime_1.jsxs)("g", Object.assign({ onClick: handleClick, style: { cursor: 'default', fontSize: `${fontSize}px` }, className: isSolved ? 'clue-cell-solved' : "clue-cell" }, { children: [(0, jsx_runtime_1.jsx)("rect", { x: x + cellPadding, y: y + cellPadding, width: cellInner, height: cellInner, fill: isSolved
+                    ? solvedBackground
+                    : focus
+                        ? focusBackground
+                        : highlight
+                            ? highlightBackground
+                            : cellBackground, stroke: cellBorder, strokeWidth: cellSize / 50 }), number && ((0, jsx_runtime_1.jsx)("text", Object.assign({ x: x + cellPadding * 4, y: y + cellPadding * 4, textAnchor: "start", dominantBaseline: "hanging", style: { fontSize: '50%', fill: numberColor } }, { children: number }))), (0, jsx_runtime_1.jsx)("text", Object.assign({ x: x + cellHalf, y: y + cellHalf + 1, textAnchor: "middle", dominantBaseline: "middle", style: { fill: textColor }, className: answer === guess ? 'guess-text-correct' : 'guess-text-incorrect' }, { children: guess }))] })));
 }
 exports.default = Cell;
 Cell.propTypes = cellPropTypes;

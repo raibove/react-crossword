@@ -59,6 +59,7 @@ export default function Cell({
     numberColor,
     focusBackground,
     highlightBackground,
+    solvedBackground,
   } = useContext(ThemeContext);
 
   const handleClick = useCallback<React.MouseEventHandler>(
@@ -71,7 +72,7 @@ export default function Cell({
     [cellData, onClick]
   );
 
-  const { row, col, guess, number, answer } = cellData;
+  const { row, col, guess, number, answer, isSolved } = cellData;
 
   const x = col * cellSize;
   const y = row * cellSize;
@@ -80,7 +81,7 @@ export default function Cell({
     <g
       onClick={handleClick}
       style={{ cursor: 'default', fontSize: `${fontSize}px` }}
-      className="clue-cell"
+      className={isSolved ? 'clue-cell-solved' : 'clue-cell'}
     >
       <rect
         x={x + cellPadding}
@@ -88,7 +89,9 @@ export default function Cell({
         width={cellInner}
         height={cellInner}
         fill={
-          focus
+          isSolved
+            ? solvedBackground
+            : focus
             ? focusBackground
             : highlight
             ? highlightBackground

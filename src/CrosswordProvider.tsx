@@ -78,6 +78,8 @@ export const crosswordProviderPropTypes = {
      * background on the active clue
      */
     highlightBackground: PropTypes.string,
+    /**  background for an cell solved */
+    solvedBackground: PropTypes.string,
   }),
 
   /** whether to use browser storage to persist the player's work-in-progress */
@@ -416,6 +418,10 @@ const CrosswordProvider = React.forwardRef<
           throw new Error('unexpected setCellCharacter call');
         }
 
+        if (cell.isSolved) {
+          return;
+        }
+
         // If the character is already the cell's guess, there's nothing to do.
         if (cell.guess === char) {
           return;
@@ -496,12 +502,14 @@ const CrosswordProvider = React.forwardRef<
           // when the answer is simply incomplete.
           let complete = true;
           let correct = true;
+          const cellsToUpdate: [number, number][] = [];
 
           for (let i = 0; i < info.answer.length; i++) {
-            const checkCell = getCellData(
-              info.row + (across ? 0 : i),
-              info.col + (across ? i : 0)
-            ) as UsedCellData;
+            const checkRow = info.row + (across ? 0 : i);
+            const checkCol = info.col + (across ? i : 0);
+            const checkCell = getCellData(checkRow, checkCol) as UsedCellData;
+
+            cellsToUpdate.push([checkRow, checkCol]);
 
             if (!checkCell.guess) {
               complete = false;
@@ -512,6 +520,20 @@ const CrosswordProvider = React.forwardRef<
             if (checkCell.guess !== checkCell.answer) {
               correct = false;
             }
+          }
+
+          if (correct && complete) {
+            console.log('<<< cell', cellsToUpdate);
+            setGridData(
+              produce((draft) => {
+                cellsToUpdate.forEach(([updateRow, updateCol]) => {
+                  (draft[updateRow][updateCol] as UsedCellData).isSolved = true;
+                });
+              })
+            );
+            // update all cells isSolved = true
+            // for direction - across/down loop al cell and fill isSolved:true
+            // get all row/column of complete list.
           }
 
           // update the clue state

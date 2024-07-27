@@ -35,6 +35,7 @@ declare const crosswordPropTypes: {
         numberColor: PropTypes.Requireable<string>;
         focusBackground: PropTypes.Requireable<string>;
         highlightBackground: PropTypes.Requireable<string>;
+        solvedBackground: PropTypes.Requireable<string>;
     }>>;
     useStorage: PropTypes.Requireable<boolean>;
     storageKey: PropTypes.Requireable<string>;
@@ -89,6 +90,7 @@ declare const Crossword: React.ForwardRefExoticComponent<Omit<PropTypes.InferPro
         numberColor: PropTypes.Requireable<string>;
         focusBackground: PropTypes.Requireable<string>;
         highlightBackground: PropTypes.Requireable<string>;
+        solvedBackground: PropTypes.Requireable<string>;
     }>>;
     useStorage: PropTypes.Requireable<boolean>;
     storageKey: PropTypes.Requireable<string>;

@@ -43,6 +43,7 @@ const defaultTheme = {
     numberColor: 'rgba(0,0,0, 0.25)',
     focusBackground: 'rgb(255,255,0)',
     highlightBackground: 'rgb(255,255,204)',
+    solvedBackground: 'rgb(240, 240, 240)',
 };
 const GridWrapper = styled_components_1.default.div.attrs(( /* props */) => ({
     className: 'crossword grid',

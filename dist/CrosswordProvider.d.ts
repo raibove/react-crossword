@@ -52,6 +52,8 @@ export declare const crosswordProviderPropTypes: {
          * background on the active clue
          */
         highlightBackground: PropTypes.Requireable<string>;
+        /**  background for an cell solved */
+        solvedBackground: PropTypes.Requireable<string>;
     }>>;
     /** whether to use browser storage to persist the player's work-in-progress */
     useStorage: PropTypes.Requireable<boolean>;
@@ -292,6 +294,8 @@ declare const CrosswordProvider: React.ForwardRefExoticComponent<Omit<PropTypes.
          * background on the active clue
          */
         highlightBackground: PropTypes.Requireable<string>;
+        /**  background for an cell solved */
+        solvedBackground: PropTypes.Requireable<string>;
     }>>;
     /** whether to use browser storage to persist the player's work-in-progress */
     useStorage: PropTypes.Requireable<boolean>;

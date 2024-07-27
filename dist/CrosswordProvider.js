@@ -71,6 +71,8 @@ exports.crosswordProviderPropTypes = {
          * background on the active clue
          */
         highlightBackground: prop_types_1.default.string,
+        /**  background for an cell solved */
+        solvedBackground: prop_types_1.default.string
     }),
     /** whether to use browser storage to persist the player's work-in-progress */
     useStorage: prop_types_1.default.bool,
@@ -211,6 +213,9 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
         if (!cell.used) {
             throw new Error('unexpected setCellCharacter call');
         }
+        if (cell.isSolved) {
+            return;
+        }
         // If the character is already the cell's guess, there's nothing to do.
         if (cell.guess === char) {
             return;
@@ -267,8 +272,12 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
             // when the answer is simply incomplete.
             let complete = true;
             let correct = true;
+            const cellsToUpdate = [];
             for (let i = 0; i < info.answer.length; i++) {
-                const checkCell = getCellData(info.row + (across ? 0 : i), info.col + (across ? i : 0));
+                const checkRow = info.row + (across ? 0 : i);
+                const checkCol = info.col + (across ? i : 0);
+                const checkCell = getCellData(checkRow, checkCol);
+                cellsToUpdate.push([checkRow, checkCol]);
                 if (!checkCell.guess) {
                     complete = false;
                     correct = false;
@@ -277,6 +286,17 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
                 if (checkCell.guess !== checkCell.answer) {
                     correct = false;
                 }
+            }
+            if (correct && complete) {
+                console.log('<<< cell', cellsToUpdate);
+                setGridData((0, immer_1.default)((draft) => {
+                    cellsToUpdate.forEach(([updateRow, updateCol]) => {
+                        draft[updateRow][updateCol].isSolved = true;
+                    });
+                }));
+                // update all cells isSolved = true
+                // for direction - across/down loop al cell and fill isSolved:true 
+                // get all row/column of complete list.
             }
             // update the clue state
             setClues((0, immer_1.default)((draft) => {
