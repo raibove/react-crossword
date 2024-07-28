@@ -168,6 +168,8 @@ export const crosswordProviderPropTypes = {
    */
   onClueSelected: PropTypes.func,
 
+  onInputSelected: PropTypes.func,
+
   children: PropTypes.node,
 };
 
@@ -271,6 +273,8 @@ export type CrosswordProviderProps = EnhancedProps<
      * callback function called when a clue is selected
      */
     onClueSelected?: (direction: Direction, number: string) => void;
+
+    onInputSelected?: (direction: Direction, number: string) => void;
   }
 >;
 
@@ -342,6 +346,7 @@ const CrosswordProvider = React.forwardRef<
       onCrosswordCorrect,
       onCellChange,
       onClueSelected,
+      onInputSelected,
       useStorage,
       storageKey,
       children,
@@ -476,7 +481,7 @@ const CrosswordProvider = React.forwardRef<
         }
 
         if (cell.isSolved) {
-          moveForward();
+          // moveForward();
           return;
         }
 
@@ -581,7 +586,6 @@ const CrosswordProvider = React.forwardRef<
           }
 
           if (correct && complete) {
-            console.log('<<< cell', cellsToUpdate);
             setGridData(
               produce((draft) => {
                 cellsToUpdate.forEach(([updateRow, updateCol]) => {
@@ -682,6 +686,12 @@ const CrosswordProvider = React.forwardRef<
         );
       }
     }, []);
+
+    useEffect(() => {
+      if (onInputSelected) {
+        onInputSelected(currentDirection, currentNumber);
+      }
+    }, [currentDirection, currentDirection]);
 
     // keyboard handling
     const handleSingleCharacter = useCallback(
@@ -1157,5 +1167,6 @@ CrosswordProvider.defaultProps = {
   onCrosswordCorrect: undefined,
   onCellChange: undefined,
   onClueSelected: undefined,
+  onInputSelected: undefined,
   children: undefined,
 };

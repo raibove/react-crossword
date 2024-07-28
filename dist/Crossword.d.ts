@@ -48,6 +48,7 @@ declare const crosswordPropTypes: {
     onCrosswordCorrect: PropTypes.Requireable<(...args: any[]) => any>;
     onCellChange: PropTypes.Requireable<(...args: any[]) => any>;
     onClueSelected: PropTypes.Requireable<(...args: any[]) => any>;
+    onInputSelected: PropTypes.Requireable<(...args: any[]) => any>;
     children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
 };
 export type CrosswordProps = EnhancedProps<typeof crosswordPropTypes, Omit<CrosswordProviderProps, 'children'>>;
@@ -103,6 +104,7 @@ declare const Crossword: React.ForwardRefExoticComponent<Omit<PropTypes.InferPro
     onCrosswordCorrect: PropTypes.Requireable<(...args: any[]) => any>;
     onCellChange: PropTypes.Requireable<(...args: any[]) => any>;
     onClueSelected: PropTypes.Requireable<(...args: any[]) => any>;
+    onInputSelected: PropTypes.Requireable<(...args: any[]) => any>;
     children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
-}>, "data" | "theme" | "useStorage" | "storageKey" | "onAnswerComplete" | "onAnswerCorrect" | "onCorrect" | "onAnswerIncorrect" | "onLoadedCorrect" | "onCrosswordComplete" | "onCrosswordCorrect" | "onCellChange" | "onClueSelected"> & Omit<CrosswordProviderProps, "children"> & React.RefAttributes<CrosswordProviderImperative>>;
+}>, "data" | "theme" | "useStorage" | "storageKey" | "onAnswerComplete" | "onAnswerCorrect" | "onCorrect" | "onAnswerIncorrect" | "onLoadedCorrect" | "onCrosswordComplete" | "onCrosswordCorrect" | "onCellChange" | "onClueSelected" | "onInputSelected"> & Omit<CrosswordProviderProps, "children"> & React.RefAttributes<CrosswordProviderImperative>>;
 export default Crossword;

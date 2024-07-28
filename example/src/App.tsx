@@ -536,6 +536,9 @@ function App() {
             onLoadedCorrect={onLoadedCorrect}
             onCrosswordCorrect={onCrosswordCorrect}
             onCellChange={onCellChange}
+            onInputSelected={(dir, cell) => {
+              console.log('<< called', dir, cell);
+            }}
           />
         </CrosswordWrapper>
 

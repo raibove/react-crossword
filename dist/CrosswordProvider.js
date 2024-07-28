@@ -149,6 +149,7 @@ exports.crosswordProviderPropTypes = {
      * callback function called when a clue is selected
      */
     onClueSelected: prop_types_1.default.func,
+    onInputSelected: prop_types_1.default.func,
     children: prop_types_1.default.node,
 };
 const defaultTheme = {
@@ -170,7 +171,7 @@ const defaultTheme = {
  *
  * @since 4.0
  */
-const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerComplete, onAnswerCorrect, onCorrect, onAnswerIncorrect, onLoadedCorrect, onCrosswordComplete, onCrosswordCorrect, onCellChange, onClueSelected, useStorage, storageKey, children, }, ref) => {
+const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerComplete, onAnswerCorrect, onCorrect, onAnswerIncorrect, onLoadedCorrect, onCrosswordComplete, onCrosswordCorrect, onCellChange, onClueSelected, onInputSelected, useStorage, storageKey, children, }, ref) => {
     const contextTheme = (0, react_1.useContext)(styled_components_1.ThemeContext);
     // The final theme is the merger of three values: the "theme" property
     // passed to the component (which takes precedence), any values from
@@ -257,7 +258,7 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
             throw new Error('unexpected setCellCharacter call');
         }
         if (cell.isSolved) {
-            moveForward();
+            // moveForward();
             return;
         }
         // If the character is already the cell's guess, there's nothing to do.
@@ -332,7 +333,6 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
                 }
             }
             if (correct && complete) {
-                console.log('<<< cell', cellsToUpdate);
                 setGridData((0, immer_1.default)((draft) => {
                     cellsToUpdate.forEach(([updateRow, updateCol]) => {
                         draft[updateRow][updateCol].isSolved = true;
@@ -406,6 +406,11 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
             console.warn('CrosswordProvider: focus() has no registered handler to call!');
         }
     }, []);
+    (0, react_1.useEffect)(() => {
+        if (onInputSelected) {
+            onInputSelected(currentDirection, currentNumber);
+        }
+    }, [currentDirection, currentDirection]);
     // keyboard handling
     const handleSingleCharacter = (0, react_1.useCallback)((char) => {
         setCellCharacter(focusedRow, focusedCol, char.toUpperCase());
@@ -584,7 +589,13 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
             setCurrentNumber((_a = cellData[direction]) !== null && _a !== void 0 ? _a : '');
         }
         focus();
-    }, [currentDirection, focus, focused, focusedCol, focusedRow]);
+    }, [
+        currentDirection,
+        focus,
+        focused,
+        focusedCol,
+        focusedRow,
+    ]);
     const handleInputClick = (0, react_1.useCallback)(( /* event */) => {
         // *don't* event.preventDefault(), because we want the input to actually
         // take focus
@@ -768,6 +779,7 @@ CrosswordProvider.defaultProps = {
     onCrosswordCorrect: undefined,
     onCellChange: undefined,
     onClueSelected: undefined,
+    onInputSelected: undefined,
     children: undefined,
 };
 //# sourceMappingURL=CrosswordProvider.js.map

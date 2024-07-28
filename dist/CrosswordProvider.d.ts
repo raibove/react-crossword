@@ -11,7 +11,7 @@ export declare const crosswordProviderPropTypes: {
         across: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
+                answer: PropTypes.Validator<string>;
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
@@ -19,7 +19,7 @@ export declare const crosswordProviderPropTypes: {
         down: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
+                answer: PropTypes.Validator<string>;
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
@@ -130,6 +130,7 @@ export declare const crosswordProviderPropTypes: {
      * callback function called when a clue is selected
      */
     onClueSelected: PropTypes.Requireable<(...args: any[]) => any>;
+    onInputSelected: PropTypes.Requireable<(...args: any[]) => any>;
     children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
 };
 export type CrosswordProviderProps = EnhancedProps<typeof crosswordProviderPropTypes, {
@@ -208,6 +209,7 @@ export type CrosswordProviderProps = EnhancedProps<typeof crosswordProviderPropT
      * callback function called when a clue is selected
      */
     onClueSelected?: (direction: Direction, number: string) => void;
+    onInputSelected?: (direction: Direction, number: string) => void;
 }>;
 export interface CrosswordProviderImperative {
     /**
@@ -253,7 +255,7 @@ declare const CrosswordProvider: React.ForwardRefExoticComponent<Omit<PropTypes.
         across: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
+                answer: PropTypes.Validator<string>;
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
@@ -261,7 +263,7 @@ declare const CrosswordProvider: React.ForwardRefExoticComponent<Omit<PropTypes.
         down: PropTypes.Validator<{
             [x: string]: NonNullable<PropTypes.InferProps<{
                 clue: PropTypes.Validator<string>;
-                answer: PropTypes.Validator<string>; /** presentation values for the crossword; these override any values coming from a parent ThemeProvider context. */
+                answer: PropTypes.Validator<string>;
                 row: PropTypes.Validator<number>;
                 col: PropTypes.Validator<number>;
             }>>;
@@ -372,8 +374,9 @@ declare const CrosswordProvider: React.ForwardRefExoticComponent<Omit<PropTypes.
      * callback function called when a clue is selected
      */
     onClueSelected: PropTypes.Requireable<(...args: any[]) => any>;
+    onInputSelected: PropTypes.Requireable<(...args: any[]) => any>;
     children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
-}>, "data" | "onAnswerComplete" | "onAnswerCorrect" | "onCorrect" | "onAnswerIncorrect" | "onLoadedCorrect" | "onCrosswordComplete" | "onCrosswordCorrect" | "onCellChange" | "onClueSelected"> & {
+}>, "data" | "onAnswerComplete" | "onAnswerCorrect" | "onCorrect" | "onAnswerIncorrect" | "onLoadedCorrect" | "onCrosswordComplete" | "onCrosswordCorrect" | "onCellChange" | "onClueSelected" | "onInputSelected"> & {
     /**
      * clue/answer data; see <a
      * href="#/Configuration%20and%20customization/Clue%20input%20format">Clue
@@ -449,5 +452,6 @@ declare const CrosswordProvider: React.ForwardRefExoticComponent<Omit<PropTypes.
      * callback function called when a clue is selected
      */
     onClueSelected?: ((direction: Direction, number: string) => void) | undefined;
+    onInputSelected?: ((direction: Direction, number: string) => void) | undefined;
 } & React.RefAttributes<CrosswordProviderImperative>>;
 export default CrosswordProvider;
