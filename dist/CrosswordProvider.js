@@ -589,13 +589,7 @@ const CrosswordProvider = react_1.default.forwardRef(({ data, theme, onAnswerCom
             setCurrentNumber((_a = cellData[direction]) !== null && _a !== void 0 ? _a : '');
         }
         focus();
-    }, [
-        currentDirection,
-        focus,
-        focused,
-        focusedCol,
-        focusedRow,
-    ]);
+    }, [currentDirection, focus, focused, focusedCol, focusedRow]);
     const handleInputClick = (0, react_1.useCallback)(( /* event */) => {
         // *don't* event.preventDefault(), because we want the input to actually
         // take focus

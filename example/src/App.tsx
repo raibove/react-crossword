@@ -570,6 +570,9 @@ function App() {
             onLoadedCorrect={onLoadedCorrectProvider}
             onCrosswordCorrect={onCrosswordCorrectProvider}
             onCellChange={onCellChangeProvider}
+            onInputSelected={(dir, cell) => {
+              console.log('<< called', dir, cell);
+            }}
           >
             <DirectionClues direction="across" />
             <CrosswordGrid />
